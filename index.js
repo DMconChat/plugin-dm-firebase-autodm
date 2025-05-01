@@ -43,3 +43,9 @@ app.post("/crear-campaña", async (req, res) => {
 });
 
 // Otros endpoints omitidos aquí por espacio: serán incluidos en el ZIP
+
+const PORT = process.env.PORT;
+
+app.listen(PORT, () => {
+  console.log(Servidor activo en el puerto ${PORT});
+});
