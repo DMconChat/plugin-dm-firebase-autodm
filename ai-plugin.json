@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Dungeon Master Firebase Plugin",
+  "name_for_model": "dungeonmaster_firebase",
+  "description_for_human": "Permite a ChatGPT actuar como Dungeon Master y registrar campañas, personajes y eventos en Firebase.",
+  "description_for_model": "Usa este plugin para crear y actualizar campañas de D&D, personajes, eventos y bitácoras en una base de datos Firebase.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://TU_DOMINIO.vercel.app/openapi.json"
+  },
+  "logo_url": "https://TU_DOMINIO.vercel.app/logo.png",
+  "contact_email": "soporte@tucampaña.com",
+  "legal_info_url": "https://tucampaña.com/terminos"
+}
