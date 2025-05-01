@@ -63,7 +63,7 @@ app.post("/personaje/:campañaId", async (req, res) => {
   try {
     const ref = db.collection("campañas").doc(req.params.campañaId);
     await ref.update({
-      ['personajes.${nombre}']: datos
+      [`personajes.${nombre}`]: datos
     });
     res.send("Personaje creado o actualizado.");
   } catch (e) {
@@ -100,5 +100,5 @@ app.get("/buscar/:campañaId/:clave", async (req, res) => {
 // Escuchar en el puerto de Render
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
-  console.log(Servidor activo en el puerto ${PORT});
+  console.log(`Servidor activo en el puerto ${PORT}`);
 });
