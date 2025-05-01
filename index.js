@@ -32,7 +32,7 @@ app.post("/crear-campaña", async (req, res) => {
     });
     res.status(201).send("Campaña creada.");
   } catch (e) {
-    res.status(500).send(e.message);
+    res.status(500).send("Error creando campaña: " + e.message);
   }
 });
 
@@ -46,7 +46,7 @@ app.post("/personaje/:campañaId", async (req, res) => {
     });
     res.send("Personaje creado o actualizado.");
   } catch (e) {
-    res.status(500).send(e.message);
+    res.status(500).send("Error registrando personaje: " + e.message);
   }
 });
 
@@ -54,4 +54,18 @@ app.post("/personaje/:campañaId", async (req, res) => {
 app.post("/bitacora/:campañaId", async (req, res) => {
   const { timestamp, tipo, detalle, origen } = req.body;
   try {
-    const ref = db.collection("
+    const ref = db.collection("campañas").doc(req.params.campañaId);
+    await ref.update({
+      bitacora: admin.firestore.FieldValue.arrayUnion({ timestamp, tipo, detalle, origen })
+    });
+    res.send("Acción registrada en la bitácora.");
+  } catch (e) {
+    res.status(500).send("Error registrando bitácora: " + e.message);
+  }
+});
+
+// Puerto
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en el puerto ${PORT}`);
+});
