@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
+// Clave de Firebase desde variable de entorno
 const serviceAccount = JSON.parse(process.env.FIREBASE_KEY);
 
 admin.initializeApp({
@@ -12,7 +13,7 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-// INFO para el Dungeon Master IA
+// Endpoint de autoexplicación para el Dungeon Master IA
 app.get("/dm-info", (req, res) => {
   res.json({
     estructura: "campañas/{id}/[personajes, sesiones, objetos, eventosGlobales, bitacora]",
@@ -42,10 +43,62 @@ app.post("/crear-campaña", async (req, res) => {
   }
 });
 
-// Otros endpoints omitidos aquí por espacio: serán incluidos en el ZIP
+// Bitácora: registrar acciones
+app.post("/bitacora/:campañaId", async (req, res) => {
+  const { timestamp, tipo, detalle, origen } = req.body;
+  try {
+    const ref = db.collection("campañas").doc(req.params.campañaId);
+    await ref.update({
+      bitacora: admin.firestore.FieldValue.arrayUnion({ timestamp, tipo, detalle, origen })
+    });
+    res.send("Acción registrada.");
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
+});
 
+// Personaje: crear o actualizar
+app.post("/personaje/:campañaId", async (req, res) => {
+  const { nombre, datos } = req.body;
+  try {
+    const ref = db.collection("campañas").doc(req.params.campañaId);
+    await ref.update({
+      [personajes.${nombre}]: datos
+    });
+    res.send("Personaje creado o actualizado.");
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
+});
+
+// Evento global
+app.post("/evento/:campañaId", async (req, res) => {
+  const { fecha, descripcion, consecuencias } = req.body;
+  try {
+    const ref = db.collection("campañas").doc(req.params.campañaId);
+    await ref.update({
+      eventosGlobales: admin.firestore.FieldValue.arrayUnion({ fecha, descripcion, consecuencias })
+    });
+    res.send("Evento global registrado.");
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
+});
+
+// Buscar por palabra clave
+app.get("/buscar/:campañaId/:clave", async (req, res) => {
+  try {
+    const doc = await db.collection("campañas").doc(req.params.campañaId).get();
+    const data = JSON.stringify(doc.data());
+    const resultado = data.includes(req.params.clave);
+    res.json({ encontrado: resultado });
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
+});
+
+// Escuchar en el puerto de Render
 const PORT = process.env.PORT;
-
 app.listen(PORT, () => {
   console.log(Servidor activo en el puerto ${PORT});
 });
