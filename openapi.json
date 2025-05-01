@@ -1,0 +1,105 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Dungeon Master Firebase Plugin",
+    "version": "1.0.0",
+    "description": "API para que ChatGPT controle campañas de D&D en Firebase en tiempo real."
+  },
+  "servers": [
+    {
+      "url": "https://TU_DOMINIO.vercel.app"
+    }
+  ],
+  "paths": {
+    "/crear-campaña": {
+      "post": {
+        "summary": "Crear una campaña",
+        "operationId": "crearCampaña",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "campañaId": { "type": "string" },
+                  "infoGeneral": { "type": "object" }
+                },
+                "required": ["campañaId", "infoGeneral"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Campaña creada exitosamente" }
+        }
+      }
+    },
+    "/personaje/{campañaId}": {
+      "post": {
+        "summary": "Crear o actualizar un personaje",
+        "operationId": "crearPersonaje",
+        "parameters": [
+          {
+            "name": "campañaId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": { "type": "string" },
+                  "datos": { "type": "object" }
+                },
+                "required": ["nombre", "datos"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Personaje registrado" }
+        }
+      }
+    },
+    "/bitacora/{campañaId}": {
+      "post": {
+        "summary": "Registrar acción en la bitácora",
+        "operationId": "registrarBitacora",
+        "parameters": [
+          {
+            "name": "campañaId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "timestamp": { "type": "string" },
+                  "tipo": { "type": "string" },
+                  "detalle": { "type": "string" },
+                  "origen": { "type": "string" }
+                },
+                "required": ["timestamp", "tipo", "detalle", "origen"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Evento registrado" }
+        }
+      }
+    }
+  }
+}
