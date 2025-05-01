@@ -9,9 +9,9 @@
   },
   "api": {
     "type": "openapi",
-    "url": "https://TU_DOMINIO.vercel.app/openapi.json"
+    "url": "https://plugin-dm-firebase-autodm-hqsi.vercel.app/"
   },
-  "logo_url": "https://TU_DOMINIO.vercel.app/logo.png",
+  "logo_url": "https://plugin-dm-firebase-autodm-hqsi.vercel.app/",
   "contact_email": "soporte@tucampaña.com",
   "legal_info_url": "https://tucampaña.com/terminos"
 }
