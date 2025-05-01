@@ -63,7 +63,7 @@ app.post("/personaje/:campañaId", async (req, res) => {
   try {
     const ref = db.collection("campañas").doc(req.params.campañaId);
     await ref.update({
-      [personajes.${nombre}]: datos
+      ['personajes.${nombre}']: datos
     });
     res.send("Personaje creado o actualizado.");
   } catch (e) {
