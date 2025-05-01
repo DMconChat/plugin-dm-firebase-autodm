@@ -1,7 +1,12 @@
-const admin = require("firebase-admin");
+const path = require("path");
 const express = require("express");
+const admin = require("firebase-admin");
+
 const app = express();
 app.use(express.json());
+
+// Servir archivos estáticos desde la raíz
+app.use(express.static(path.join(__dirname)));
 
 const serviceAccount = JSON.parse(process.env.FIREBASE_KEY);
 
