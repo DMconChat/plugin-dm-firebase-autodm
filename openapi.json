@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://TU_DOMINIO.vercel.app"
+      "url": "https://plugin-dm-firebase-autodm-hqsi.vercel.app/"
     }
   ],
   "paths": {
