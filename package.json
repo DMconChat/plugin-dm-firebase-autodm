@@ -1,0 +1,13 @@
+{
+  "name": "plugin-dm-firebase",
+  "version": "3.0.0",
+  "description": "Plugin para Dungeon Master IA con documentación y endpoint de autoexplicación",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "firebase-admin": "^11.10.1"
+  }
+}
